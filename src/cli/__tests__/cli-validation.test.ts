@@ -121,7 +121,13 @@ describe('CLI Validation Functions', () => {
         config?: string;
         ignore?: string;
       }>
-    ): Required<typeof options> {
+    ): {
+      patterns: string[];
+      dryRun: boolean;
+      verbose: boolean;
+      config?: string;
+      ignore?: string;
+    } {
       return {
         patterns: options.patterns || ['src/**/*.{ts,tsx,js,jsx}'],
         dryRun: options.dryRun || false,
