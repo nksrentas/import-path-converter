@@ -1,0 +1,78 @@
+{
+    "name": "import-path-converter",
+    "version": "1.0.0",
+    "author": {
+        "name": "Nikos Rentas",
+        "email": "nksrentas@gmail.com"
+    },
+    "description": "Automatically converts relative imports to path alias imports based on TypeScript configuration",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "bin": {
+        "import-path-converter": "./bin/import-path-converter"
+    },
+    "exports": {
+        ".": {
+            "import": "./dist/index.js",
+            "require": "./dist/index.js",
+            "types": "./dist/index.d.ts"
+        }
+    },
+    "scripts": {
+        "build": "tsc",
+        "dev": "tsc --watch",
+        "clean": "rm -rf dist",
+        "prebuild": "npm run clean",
+        "prepublishOnly": "npm run format && npm run lint && npm run type-check && npm run build && npm run test",
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "test:coverage": "vitest run --coverage",
+        "test:performance": "vitest run src/__tests__/performance.test.ts",
+        "test:benchmark": "vitest run src/__tests__/benchmark.test.ts",
+        "test:stress": "vitest run src/__tests__/stress.test.ts",
+        "test:all": "npm run test && npm run test:performance && npm run test:benchmark && npm run test:stress",
+        "performance:monitor": "node scripts/performance-monitor.js",
+        "lint": "eslint src --ext .ts,.tsx",
+        "lint:fix": "eslint src --ext .ts,.tsx --fix",
+        "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,md}\"",
+        "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,md}\"",
+        "type-check": "tsc --noEmit",
+        "start": "node bin/import-path-converter"
+    },
+    "keywords": [
+        "typescript",
+        "imports",
+        "path-alias",
+        "refactor",
+        "cli"
+    ],
+    "license": "MIT",
+    "devDependencies": {
+        "@types/node": "^20.0.0",
+        "@typescript-eslint/eslint-plugin": "^6.0.0",
+        "@typescript-eslint/parser": "^6.0.0",
+        "eslint": "^8.0.0",
+        "eslint-config-prettier": "^9.0.0",
+        "eslint-plugin-prettier": "^5.0.0",
+        "prettier": "^3.0.0",
+        "typescript": "^5.0.0",
+        "vitest": "^1.0.0"
+    },
+    "dependencies": {},
+    "files": [
+        "dist",
+        "bin",
+        "README.md"
+    ],
+    "engines": {
+        "node": ">=16.0.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/nksrentas/import-path-converter"
+    },
+    "bugs": {
+        "url": "https://github.com/nksrentas/import-path-converter/issues"
+    },
+    "homepage": "https://github.com/nksrentas/import-path-converter#readme"
+}

@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+coverage/
+
+# Configuration files
+*.config.js
+*.config.ts
+.eslintrc.js
+vitest.config.ts
+
+# Lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Logs
+*.log
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+
+# Git
+.git/
+
+# Temporary files
+*.tmp
+*.temp

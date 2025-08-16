@@ -1,0 +1,36 @@
+# Source files
+src/
+tsconfig.json
+vitest.config.ts
+
+# Test files
+**/*.test.ts
+**/*.spec.ts
+test-*
+
+# Development files
+.kiro/
+scripts/
+examples/
+example-project/
+
+# Linting and formatting config
+.eslintrc.js
+.eslintignore
+.prettierrc
+.prettierignore
+
+# Build artifacts
+*.tsbuildinfo
+.DS_Store
+
+# IDE files
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Coverage
+coverage/
