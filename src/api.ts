@@ -155,7 +155,9 @@ async function findTsConfig(startPath: string): Promise<string> {
     if (stat.isFile()) {
       currentDir = path.dirname(currentDir);
     }
-  } catch {}
+  } catch {
+    // Ignore stat errors - path may not exist
+  }
 
   while (currentDir !== path.dirname(currentDir)) {
     const configPath = path.join(currentDir, 'tsconfig.json');

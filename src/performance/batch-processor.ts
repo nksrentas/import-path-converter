@@ -1,8 +1,11 @@
 import fs from 'fs/promises';
+import { cpus } from 'os';
 import { Worker } from 'worker_threads';
 import { PathResolverState } from '../path-resolution/types.js';
 import { ProcessingOptions, ProcessingResult } from '../file-processing/types.js';
 import { processFile } from '../file-processing/index.js';
+
+const cpuCount = cpus().length;
 
 export interface BatchProcessingOptions extends ProcessingOptions {
   /** Maximum number of files to process concurrently */
@@ -37,7 +40,7 @@ export async function processBatch(
 ): Promise<{ results: ProcessingResult[]; stats: BatchProcessingStats }> {
   const startTime = Date.now();
   const concurrency =
-    options.concurrency || Math.min(4, Math.max(1, Math.floor(require('os').cpus().length / 2)));
+    options.concurrency || Math.min(4, Math.max(1, Math.floor(cpuCount / 2)));
   const batchSize = options.batchSize || 50;
   const maxMemoryUsage = options.maxMemoryUsage || 500 * 1024 * 1024; // 500MB
 
@@ -210,7 +213,7 @@ async function processFileWithStreaming(
  */
 export class WorkerPool {
   private workers: Worker[] = [];
-  private queue: Array<{ resolve: Function; reject: Function; data: any }> = [];
+  private queue: Array<{ resolve: (value: unknown) => void; reject: (reason?: unknown) => void; data: unknown }> = [];
   private activeJobs = 0;
 
   constructor(
@@ -243,7 +246,7 @@ export class WorkerPool {
     }
   }
 
-  async execute(data: any): Promise<any> {
+  async execute<T, R>(data: T): Promise<R> {
     return new Promise((resolve, reject) => {
       this.queue.push({ resolve, reject, data });
       this.processQueue();

@@ -48,7 +48,8 @@ describe('Performance Tests', () => {
         rootDir: tempDir,
       };
 
-      const resolverState = createPathResolver(config);
+      // Setup resolver for potential future test extensions
+      createPathResolver(config);
 
       const testSizes = [10, 100, 1000];
       const times: number[] = [];
@@ -141,7 +142,8 @@ describe('Performance Tests', () => {
       await createTestProject(tempDir, 100, 50000); // 100 files, 50KB each
 
       const configPath = path.join(tempDir, 'tsconfig.json');
-      const files = await getAllFiles(path.join(tempDir, 'src'));
+      // Get files count for memory calculation reference
+      await getAllFiles(path.join(tempDir, 'src'));
 
       const initialMemory = process.memoryUsage().heapUsed;
 

@@ -8,6 +8,7 @@ import path from 'path';
 import os from 'os';
 import { performance } from 'perf_hooks';
 import { createPathResolver, resolveImport } from '../path-resolution/index.js';
+import type { PathMapping } from '../config-parsing/types.js';
 import { findImports } from '../import-parsing/index.js';
 import { processFile } from '../file-processing/index.js';
 import { FastMap, LRUCache, Trie, BloomFilter } from '../performance/index.js';
@@ -153,7 +154,7 @@ describe('Benchmark Tests', () => {
 
   describe('Core Algorithm Benchmarks', () => {
     it('should benchmark path resolution performance', async () => {
-      const pathMappings = new Map<string, any[]>();
+      const pathMappings = new Map<string, PathMapping[]>();
       for (let i = 0; i < 100; i++) {
         pathMappings.set(`alias${i}`, [
           {
@@ -269,7 +270,7 @@ describe('Benchmark Tests', () => {
     it('should measure memory usage for large configurations', () => {
       const initialMemory = process.memoryUsage().heapUsed;
 
-      const pathMappings = new Map<string, any[]>();
+      const pathMappings = new Map<string, PathMapping[]>();
       for (let i = 0; i < 1000; i++) {
         pathMappings.set(`alias${i}`, [
           {

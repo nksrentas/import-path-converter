@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import fs from 'fs/promises';
+import type { Stats } from 'fs';
 import {
   processFile,
   replaceImports,
@@ -67,7 +68,7 @@ import './Button.css';`;
         reason: 'Converted using alias',
       };
 
-      mockFs.stat.mockResolvedValue({ size: 1000 } as any);
+      mockFs.stat.mockResolvedValue({ size: 1000 } as Stats);
       mockFs.readFile.mockResolvedValue(fileContent);
       mockFs.writeFile.mockResolvedValue();
       mockFindImports.mockReturnValue(mockImports);
@@ -101,7 +102,7 @@ import './Button.css';`;
         convertedImport: '~/utils/helpers',
       };
 
-      mockFs.stat.mockResolvedValue({ size: 1000 } as any);
+      mockFs.stat.mockResolvedValue({ size: 1000 } as Stats);
       mockFs.readFile.mockResolvedValue(fileContent);
       mockFindImports.mockReturnValue(mockImports);
       mockResolveImport.mockReturnValue(mockConversion);
@@ -124,7 +125,7 @@ import './Button.css';`;
     it('should handle files that are too large', async () => {
       const filePath = '/test/src/large-file.ts';
 
-      mockFs.stat.mockResolvedValue({ size: 20 * 1024 * 1024 } as any);
+      mockFs.stat.mockResolvedValue({ size: 20 * 1024 * 1024 } as Stats);
 
       const result = await processFile(filePath, mockResolverState);
 
@@ -136,7 +137,7 @@ import './Button.css';`;
       const filePath = '/test/src/constants.ts';
       const fileContent = `export const API_URL = 'https://api.example.com';`;
 
-      mockFs.stat.mockResolvedValue({ size: 1000 } as any);
+      mockFs.stat.mockResolvedValue({ size: 1000 } as Stats);
       mockFs.readFile.mockResolvedValue(fileContent);
       mockFindImports.mockReturnValue([]);
 
@@ -166,7 +167,7 @@ import './Button.css';`;
         reason: 'Not a relative import',
       };
 
-      mockFs.stat.mockResolvedValue({ size: 1000 } as any);
+      mockFs.stat.mockResolvedValue({ size: 1000 } as Stats);
       mockFs.readFile.mockResolvedValue(fileContent);
       mockFindImports.mockReturnValue(mockImports);
       mockResolveImport.mockReturnValue(mockConversion);
@@ -181,7 +182,7 @@ import './Button.css';`;
     it('should handle file read errors', async () => {
       const filePath = '/test/src/missing.ts';
 
-      mockFs.stat.mockResolvedValue({ size: 1000 } as any);
+      mockFs.stat.mockResolvedValue({ size: 1000 } as Stats);
       mockFs.readFile.mockRejectedValue(new Error('File not found'));
 
       const result = await processFile(filePath, mockResolverState);

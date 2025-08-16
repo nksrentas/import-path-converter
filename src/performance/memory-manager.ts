@@ -135,7 +135,7 @@ export class MemoryManager {
   /**
    * Create a memory-efficient file reader stream
    */
-  createFileStream(filePath: string): Readable {
+  createFileStream(): Readable {
     return new Readable({
       highWaterMark: this.options.chunkSize,
       async read() {},
@@ -158,7 +158,7 @@ export class MemoryManager {
       return;
     }
 
-    const chunks: string[] = [];
+    // Initialize chunks array for future streaming implementation
     const readStream = fsSync.createReadStream(filePath, {
       encoding: 'utf-8',
       highWaterMark: this.options.chunkSize,

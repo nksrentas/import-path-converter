@@ -8,6 +8,7 @@ import { createPathResolver } from '../path-resolution/index.js';
 import { createIgnoreState, shouldIgnore } from '../ignore-handling/index.js';
 import { processFile, getProcessingStats } from '../file-processing/index.js';
 import type { ProcessingResult } from '../file-processing/types.js';
+import type { IgnoreState } from '../ignore-handling/types.js';
 
 /**
  * CLI interface for import-path-converter
@@ -210,7 +211,7 @@ async function processFiles(options: CLIOptions): Promise<void> {
 /**
  * Find files matching the given patterns
  */
-async function findFiles(patterns: string[], ignoreState: any): Promise<string[]> {
+async function findFiles(patterns: string[], ignoreState: IgnoreState): Promise<string[]> {
   const allFiles = new Set<string>();
 
   for (const pattern of patterns) {
@@ -256,7 +257,9 @@ async function expandPattern(pattern: string): Promise<string[]> {
           files.push(fullPath);
         }
       }
-    } catch (error) {}
+    } catch {
+      // Ignore directory read errors - directory may not exist or be inaccessible
+    }
   } else {
     try {
       const stat = await fs.promises.stat(pattern);
@@ -265,7 +268,9 @@ async function expandPattern(pattern: string): Promise<string[]> {
       } else if (stat.isDirectory()) {
         await walkDirectory(pattern, files, ['ts', 'tsx', 'js', 'jsx']);
       }
-    } catch (error) {}
+    } catch {
+      // Ignore directory read errors - directory may not exist or be inaccessible
+    }
   }
 
   return files;
@@ -292,9 +297,13 @@ async function walkDirectory(dir: string, files: string[], extensions: string[])
             files.push(fullPath);
           }
         }
-      } catch (error) {}
+      } catch {
+      // Ignore directory read errors - directory may not exist or be inaccessible
     }
-  } catch (error) {}
+    }
+  } catch {
+    // Ignore directory traversal errors
+  }
 }
 
 /**

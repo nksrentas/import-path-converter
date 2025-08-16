@@ -62,15 +62,15 @@ export class FastMap<K, V> extends Map<K, V> {
 /**
  * Trie data structure for efficient prefix matching
  */
-export class Trie {
-  private root: TrieNode = new TrieNode();
+export class Trie<T = unknown> {
+  private root: TrieNode<T> = new TrieNode<T>();
 
-  insert(word: string, value?: any): void {
+  insert(word: string, value?: T): void {
     let current = this.root;
 
     for (const char of word) {
       if (!current.children.has(char)) {
-        current.children.set(char, new TrieNode());
+        current.children.set(char, new TrieNode<T>());
       }
       current = current.children.get(char)!;
     }
@@ -81,7 +81,7 @@ export class Trie {
     }
   }
 
-  search(word: string): { found: boolean; value?: any } {
+  search(word: string): { found: boolean; value?: T } {
     let current = this.root;
 
     for (const char of word) {
@@ -113,7 +113,7 @@ export class Trie {
   /**
    * Find all words with given prefix
    */
-  findWordsWithPrefix(prefix: string): Array<{ word: string; value?: any }> {
+  findWordsWithPrefix(prefix: string): Array<{ word: string; value?: T }> {
     let current = this.root;
 
     for (const char of prefix) {
@@ -122,15 +122,15 @@ export class Trie {
       }
       current = current.children.get(char)!;
     }
-    const results: Array<{ word: string; value?: any }> = [];
+    const results: Array<{ word: string; value?: T }> = [];
     this.collectWords(current, prefix, results);
     return results;
   }
 
   private collectWords(
-    node: TrieNode,
+    node: TrieNode<T>,
     currentWord: string,
-    results: Array<{ word: string; value?: any }>
+    results: Array<{ word: string; value?: T }>
   ): void {
     if (node.isEndOfWord) {
       results.push({ word: currentWord, value: node.value });
@@ -142,10 +142,10 @@ export class Trie {
   }
 }
 
-class TrieNode {
-  children = new Map<string, TrieNode>();
+class TrieNode<T = unknown> {
+  children = new Map<string, TrieNode<T>>();
   isEndOfWord = false;
-  value?: any;
+  value?: T;
 }
 
 /**

@@ -20,7 +20,7 @@ export const createPathResolver: CreatePathResolverFunction = (
 ): PathResolverState => {
   const pathMappings = new FastMap(config.pathMappings);
   const aliasLookup = new FastMap<string, string>();
-  for (const [aliasPrefix, mappings] of pathMappings) {
+  for (const [, mappings] of pathMappings) {
     for (const mapping of mappings) {
       const cleanResolvedBase = mapping.resolvedBase.replace(/\/\*$/, '');
       const cleanAlias = mapping.alias.replace(/\/\*$/, '');

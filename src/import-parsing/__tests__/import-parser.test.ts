@@ -260,8 +260,8 @@ describe('Import Parsing', () => {
     });
 
     it('should handle null/undefined content', () => {
-      const matches1 = findImports(null as any);
-      const matches2 = findImports(undefined as any);
+      const matches1 = findImports(null as never);
+      const matches2 = findImports(undefined as never);
       expect(matches1).toHaveLength(0);
       expect(matches2).toHaveLength(0);
     });
