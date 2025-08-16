@@ -213,7 +213,8 @@ async function processFileWithStreaming(
  */
 export class WorkerPool {
   private workers: Worker[] = [];
-  private queue: Array<{ resolve: (value: unknown) => void; reject: (reason?: unknown) => void; data: unknown }> = [];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private queue: Array<{ resolve: (value: any) => void; reject: (reason?: any) => void; data: unknown }> = [];
   private activeJobs = 0;
 
   constructor(
