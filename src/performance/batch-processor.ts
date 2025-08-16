@@ -39,8 +39,7 @@ export async function processBatch(
   options: BatchProcessingOptions = {}
 ): Promise<{ results: ProcessingResult[]; stats: BatchProcessingStats }> {
   const startTime = Date.now();
-  const concurrency =
-    options.concurrency || Math.min(4, Math.max(1, Math.floor(cpuCount / 2)));
+  const concurrency = options.concurrency || Math.min(4, Math.max(1, Math.floor(cpuCount / 2)));
   const batchSize = options.batchSize || 50;
   const maxMemoryUsage = options.maxMemoryUsage || 500 * 1024 * 1024; // 500MB
 
@@ -214,7 +213,13 @@ async function processFileWithStreaming(
 export class WorkerPool {
   private workers: Worker[] = [];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private queue: Array<{ resolve: (value: any) => void; reject: (reason?: any) => void; data: unknown }> = [];
+  private queue: Array<{
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    resolve: (value: any) => void;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    reject: (reason?: any) => void;
+    data: unknown;
+  }> = [];
   private activeJobs = 0;
 
   constructor(

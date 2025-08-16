@@ -51,7 +51,7 @@ describe('Stress Tests', () => {
         console.log(`Processed ${fileCount} files in ${processingTime}ms`);
         console.log(`Rate: ${filesPerSecond.toFixed(1)} files/second`);
 
-        const expectedCount = fileCount + 2; 
+        const expectedCount = fileCount + 2;
         expect(results).toHaveLength(expectedCount);
         expect(filesPerSecond).toBeGreaterThan(5);
         expect(processingTime).toBeLessThan(30 * 60 * 1000);
@@ -81,12 +81,12 @@ describe('Stress Tests', () => {
         const processingTime = endTime - startTime;
         console.log(`Processed ${fileCount} large files in ${processingTime}ms`);
 
-        const expectedCount = fileCount + 2; 
+        const expectedCount = fileCount + 2;
         expect(results).toHaveLength(expectedCount);
         expect(processingTime).toBeLessThan(5 * 60 * 1000);
       },
       5 * 60 * 1000
-    ); 
+    );
 
     it(
       'should handle projects with complex path mappings',
@@ -136,7 +136,7 @@ describe('Stress Tests', () => {
         maxMemoryUsage: lowMemoryLimit,
       });
 
-      const expectedCount = fileCount + 2; 
+      const expectedCount = fileCount + 2;
       expect(results).toHaveLength(expectedCount);
 
       const finalMemory = process.memoryUsage().heapUsed;
@@ -162,7 +162,7 @@ describe('Stress Tests', () => {
           maxMemoryUsage: 100 * 1024 * 1024,
         });
 
-        const expectedCount = fileCount + 2; 
+        const expectedCount = fileCount + 2;
         expect(results).toHaveLength(expectedCount);
 
         const maxMemory = Math.max(...memoryReadings);
@@ -171,7 +171,7 @@ describe('Stress Tests', () => {
         console.log(`Max memory: ${(maxMemory / 1024 / 1024).toFixed(1)}MB`);
         console.log(`Avg memory: ${(avgMemory / 1024 / 1024).toFixed(1)}MB`);
 
-        expect(maxMemory).toBeLessThan(500 * 1024 * 1024); 
+        expect(maxMemory).toBeLessThan(500 * 1024 * 1024);
       } finally {
         clearInterval(memoryMonitor);
       }
@@ -260,13 +260,11 @@ describe('Stress Tests', () => {
         verbose: false,
       });
 
-      const expectedCount = fileCount + 2; 
+      const expectedCount = fileCount + 2;
       expect(results).toHaveLength(expectedCount);
 
       // Verify corrupted files are handled properly
-      results.filter(
-        r => corruptedFiles.includes(r.filePath) && r.errors && r.errors.length > 0
-      );
+      results.filter(r => corruptedFiles.includes(r.filePath) && r.errors && r.errors.length > 0);
 
       const totalResults = results.length;
       expect(totalResults).toBeGreaterThan(0);
@@ -293,7 +291,7 @@ describe('Stress Tests', () => {
         dryRun: false,
       });
 
-      const expectedCount = fileCount + 2; 
+      const expectedCount = fileCount + 2;
       expect(results).toHaveLength(expectedCount);
 
       const errorResults = results.filter(r => r.errors && r.errors.length > 0);

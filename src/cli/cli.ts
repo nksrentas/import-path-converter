@@ -298,8 +298,8 @@ async function walkDirectory(dir: string, files: string[], extensions: string[])
           }
         }
       } catch {
-      // Ignore directory read errors - directory may not exist or be inaccessible
-    }
+        // Ignore directory read errors - directory may not exist or be inaccessible
+      }
     }
   } catch {
     // Ignore directory traversal errors

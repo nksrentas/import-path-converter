@@ -118,7 +118,7 @@ describe('Performance Tests', () => {
       const time2 = Number(end2 - start2);
 
       console.log(`First run: ${time1}ns, Second run: ${time2}ns, Ratio: ${time2 / time1}`);
-      expect(time2).toBeLessThan(time1 * 1.5); 
+      expect(time2).toBeLessThan(time1 * 1.5);
       expect(result1).toEqual(result2);
     });
   });
