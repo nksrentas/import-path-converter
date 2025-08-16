@@ -29,8 +29,8 @@ export function createIgnoreState(
   if (options.ignoreNodeModules !== false) {
     patterns.push('node_modules/**');
   }
-  const ignoreFile = ignoreFilePath || '.importignore';
-  if (existsSync(ignoreFile)) {
+  const ignoreFile = ignoreFilePath === null ? null : ignoreFilePath || '.importignore';
+  if (ignoreFile && existsSync(ignoreFile)) {
     try {
       const content = readFileSync(ignoreFile, 'utf-8');
       const filePatterns = content
@@ -65,7 +65,7 @@ export function compilePatterns(patterns: string[]): RegExp[] {
     const isNegation = pattern.startsWith('!');
     const cleanPattern = isNegation ? pattern.slice(1) : pattern;
 
-    if (!cleanPattern.trim()) {
+    if (!cleanPattern.trim() || cleanPattern === '**' || cleanPattern === '***') {
       return new RegExp('$.^');
     }
 

@@ -61,7 +61,7 @@ src/generated/**
       const state = createIgnoreState('non-existent-file');
 
       expect(state.patterns).toBeDefined();
-      expect(state.originalPatterns.length).toBeGreaterThan(0); 
+      expect(state.originalPatterns.length).toBeGreaterThan(0);
     });
   });
 
@@ -94,7 +94,7 @@ src/generated/**
       expect(patterns[0].test('src/component.js')).toBe(false);
 
       expect(patterns[1].test('docs/readme.md')).toBe(true);
-      expect(patterns[1].test('docs/deep/readme.md')).toBe(false); 
+      expect(patterns[1].test('docs/deep/readme.md')).toBe(false);
     });
 
     it('should handle absolute patterns (starting with /)', () => {
@@ -111,7 +111,7 @@ src/generated/**
       const patterns = compilePatterns(['*.log', '!important.log']);
 
       expect(patterns[0].test('error.log')).toBe(true);
-      expect(patterns[1].test('important.log')).toBe(true); 
+      expect(patterns[1].test('important.log')).toBe(true);
     });
 
     it('should handle question mark wildcards', () => {
@@ -131,8 +131,8 @@ src/generated/**
       const patterns = compilePatterns(['', '   ', 'valid.txt']);
 
       expect(patterns).toHaveLength(3);
-      expect(patterns[0].test('anything')).toBe(false); 
-      expect(patterns[1].test('anything')).toBe(false); 
+      expect(patterns[0].test('anything')).toBe(false);
+      expect(patterns[1].test('anything')).toBe(false);
       expect(patterns[2].test('valid.txt')).toBe(true);
     });
   });
@@ -261,7 +261,7 @@ src/generated/**
       const filtered = filterIgnoredFiles(state, files);
 
       expect(filtered).toContain('src/component.js');
-      expect(filtered).toContain('important.log'); 
+      expect(filtered).toContain('important.log');
       expect(filtered).toContain('docs/readme.md');
       expect(filtered).not.toContain('error.log');
       expect(filtered).not.toContain('temp/cache.txt');
@@ -346,15 +346,7 @@ temp/
     it('should handle edge cases and malformed patterns', () => {
       const state = createIgnoreState(undefined, {
         useDefaults: false,
-        additionalPatterns: [
-          '', 
-          '   ', 
-          '*.', 
-          '**', 
-          '***', 
-          '[invalid', 
-          'normal.txt', 
-        ],
+        additionalPatterns: ['', '   ', '*.', '**', '***', '[invalid', 'normal.txt'],
       });
 
       expect(shouldIgnore(state, 'normal.txt').shouldIgnore).toBe(true);

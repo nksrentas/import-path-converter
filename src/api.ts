@@ -63,7 +63,7 @@ export async function convertImports(
       files.forEach(file => console.log(`  - ${file}`));
     }
 
-    const filesToProcess = files.filter(file => !shouldIgnore(ignoreState, file));
+    const filesToProcess = files.filter(file => !shouldIgnore(ignoreState, file).shouldIgnore);
 
     if (options.verbose) {
       console.log(`Processing ${filesToProcess.length} files after filtering...`);

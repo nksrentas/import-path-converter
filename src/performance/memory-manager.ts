@@ -263,12 +263,12 @@ export class MemoryAwareCache<K, V> {
 
   private estimateSize(value: V): number {
     if (typeof value === 'string') {
-      return value.length * 2; 
+      return value.length * 2;
     }
     if (typeof value === 'object' && value !== null) {
       return JSON.stringify(value).length * 2;
     }
-    return 64; 
+    return 64;
   }
 }
 
@@ -297,7 +297,7 @@ export class BufferPool {
     }
 
     if (pool.length < this.maxPoolSize) {
-      buffer.fill(0); 
+      buffer.fill(0);
       pool.push(buffer);
     }
   }

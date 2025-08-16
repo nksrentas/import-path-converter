@@ -1,4 +1,3 @@
-
 import { describe, it, expect } from 'vitest';
 import {
   findImports,
@@ -16,10 +15,10 @@ describe('Import Parsing', () => {
 
       expect(matches).toHaveLength(1);
       expect(matches[0]).toEqual({
-        fullMatch: `import { Component } from './component'`,
+        fullMatch: `import { Component } from './component';`,
         importPath: './component',
         startIndex: 0,
-        endIndex: content.length - 1,
+        endIndex: 40,
         type: 'es6',
       });
     });
@@ -218,7 +217,7 @@ describe('Import Parsing', () => {
             `;
       const matches = findImports(content);
 
-      expect(matches).toHaveLength(2); 
+      expect(matches).toHaveLength(2);
     });
 
     it('should handle parsing options', () => {

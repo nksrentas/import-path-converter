@@ -2,14 +2,14 @@ import { ImportMatch, ImportType, ImportParsingOptions } from './types.js';
 
 export const IMPORT_PATTERNS = {
   ES6_IMPORT:
-    /import\s+(?:(?:\{[^}]*\}|\*\s+as\s+\w+|\w+)(?:\s*,\s*(?:\{[^}]*\}|\*\s+as\s+\w+|\w+))*\s+from\s+)?['"`]([^'"`]+)['"`]/g,
-  ES6_IMPORT_SIDE_EFFECT: /import\s+['"`]([^'"`]+)['"`]/g,
-  COMMONJS_REQUIRE: /require\s*\(\s*['"`]([^'"`]+)['"`]\s*\)/g,
-  DYNAMIC_IMPORT: /import\s*\(\s*['"`]([^'"`]+)['"`]\s*\)/g,
-  ES6_NAMED_IMPORT: /import\s+\{[^}]*\}\s+from\s+['"`]([^'"`]+)['"`]/g,
-  ES6_DEFAULT_IMPORT: /import\s+\w+\s+from\s+['"`]([^'"`]+)['"`]/g,
-  ES6_NAMESPACE_IMPORT: /import\s+\*\s+as\s+\w+\s+from\s+['"`]([^'"`]+)['"`]/g,
-  ES6_MIXED_IMPORT: /import\s+\w+\s*,\s*\{[^}]*\}\s+from\s+['"`]([^'"`]+)['"`]/g,
+    /import\s+(?:(?:\{[^}]*\}|\*\s+as\s+\w+|\w+)(?:\s*,\s*(?:\{[^}]*\}|\*\s+as\s+\w+|\w+))*\s+from\s+)?['"`]([^'"`]+)['"`];?/g,
+  ES6_IMPORT_SIDE_EFFECT: /import\s+['"`]([^'"`]+)['"`];?/g,
+  COMMONJS_REQUIRE: /require\s*\(\s*['"`]([^'"`]+)['"`]\s*\);?/g,
+  DYNAMIC_IMPORT: /import\s*\(\s*['"`]([^'"`]+)['"`]\s*\);?/g,
+  ES6_NAMED_IMPORT: /import\s+\{[^}]*\}\s+from\s+['"`]([^'"`]+)['"`];?/g,
+  ES6_DEFAULT_IMPORT: /import\s+\w+\s+from\s+['"`]([^'"`]+)['"`];?/g,
+  ES6_NAMESPACE_IMPORT: /import\s+\*\s+as\s+\w+\s+from\s+['"`]([^'"`]+)['"`];?/g,
+  ES6_MIXED_IMPORT: /import\s+\w+\s*,\s*\{[^}]*\}\s+from\s+['"`]([^'"`]+)['"`];?/g,
 } as const;
 
 const DEFAULT_OPTIONS: Required<ImportParsingOptions> = {

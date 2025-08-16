@@ -124,7 +124,7 @@ import './Button.css';`;
     it('should handle files that are too large', async () => {
       const filePath = '/test/src/large-file.ts';
 
-      mockFs.stat.mockResolvedValue({ size: 20 * 1024 * 1024 } as any); 
+      mockFs.stat.mockResolvedValue({ size: 20 * 1024 * 1024 } as any);
 
       const result = await processFile(filePath, mockResolverState);
 
@@ -259,10 +259,10 @@ import React from 'react';`;
       const content1 = `import { Utils } from "../../utils/helpers";`;
       const imports1: ImportMatch[] = [
         {
-          fullMatch: 'import { Utils } from "../../utils/helpers"',
+          fullMatch: 'import { Utils } from "../../utils/helpers";',
           importPath: '../../utils/helpers',
           startIndex: 0,
-          endIndex: 44,
+          endIndex: 45,
           type: 'es6',
         },
       ];
@@ -278,10 +278,10 @@ import React from 'react';`;
       const content2 = `import { Button } from '../components/Button';`;
       const imports2: ImportMatch[] = [
         {
-          fullMatch: "import { Button } from '../components/Button'",
+          fullMatch: "import { Button } from '../components/Button';",
           importPath: '../components/Button',
           startIndex: 0,
-          endIndex: 46,
+          endIndex: 47,
           type: 'es6',
         },
       ];

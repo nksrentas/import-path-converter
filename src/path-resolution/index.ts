@@ -64,6 +64,9 @@ export const resolveImport: ResolveImportFunction = (
   }
 
   try {
+    if (!fromFile || !fromFile.trim()) {
+      throw new Error('fromFile parameter cannot be empty');
+    }
     const fromDir = path.dirname(fromFile);
     const absolutePath = path.resolve(fromDir, importPath);
     const bestMatch = findBestMatch(state, absolutePath);

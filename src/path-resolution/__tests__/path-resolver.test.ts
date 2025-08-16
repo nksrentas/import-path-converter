@@ -216,12 +216,12 @@ describe('Path Resolution', () => {
       const start = Date.now();
       const result = resolveImport(
         largeResolverState,
-        '../lib50/utils',
+        '../../lib50/utils',
         '/project/src/pages/Home.tsx'
       );
       const end = Date.now();
 
-      expect(end - start).toBeLessThan(10); 
+      expect(end - start).toBeLessThan(10);
       expect(result.convertedImport).toBe('@lib50/utils');
     });
   });
